@@ -112,7 +112,63 @@ class _EditEntryState extends State<EditEntry> {
                       color: Colors.black54,
                     )
                   ],
-                ))
+                )),
+            TextField(
+              controller: _moodController,
+              autofocus: true,
+              textInputAction: TextInputAction.next,
+              focusNode: _moodFocus,
+              textCapitalization: TextCapitalization.words,
+              decoration: InputDecoration(
+                labelText: 'Mood',
+                icon: Icon(Icons.mood),
+              ),
+              onSubmitted: (submitted) {
+                FocusScope.of(context).requestFocus(_noteFocus);
+              },
+            ),
+            TextField(
+              controller: _noteController,
+              textInputAction: TextInputAction.newline,
+              focusNode: _noteFocus,
+              textCapitalization: TextCapitalization.sentences,
+              decoration:
+                  InputDecoration(labelText: 'Note', icon: Icon(Icons.subject)),
+              maxLines: null,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                FlatButton(
+                  child: Text('Cancel'),
+                  color: Colors.grey.shade100,
+                  onPressed: () {
+                    _journalEdit.action = 'Cancel';
+                    Navigator.pop(context, _journalEdit);
+                  },
+                ),
+                SizedBox(
+                  width: 8.0,
+                ),
+                FlatButton(
+                  onPressed: () {
+                    _journalEdit.action = 'Save';
+                    String _id = widget.add
+                        ? Random().nextInt(9999999).toString()
+                        : _journalEdit.journal.id;
+                    _journalEdit.journal = Journal(
+                      id: _id,
+                      date: _selectedDate.toString(),
+                      mood: _moodController.text,
+                      note: _noteController.text,
+                    );
+                    Navigator.pop(context, _journalEdit);
+                  },
+                  child: Text('Save'),
+                  color: Colors.lightGreen.shade100,
+                )
+              ],
+            )
           ],
         ),
       )),
