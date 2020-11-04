@@ -33,16 +33,16 @@ class DatabaseFileRoutines {
 
     return file.writeAsString('$json');
   }
+}
 
-  Database databaseFromJson(String str) {
-    final dataFromJson = json.decode(str);
-    return Database.fromJson(dataFromJson);
-  }
+Database databaseFromJson(String str) {
+  final dataFromJson = json.decode(str);
+  return Database.fromJson(dataFromJson);
+}
 
-  String databaseToJson(Database data) {
-    final dataToJson = data.toJson();
-    return json.encode(dataToJson);
-  }
+String databaseToJson(Database data) {
+  final dataToJson = data.toJson();
+  return json.encode(dataToJson);
 }
 
 class Database {
